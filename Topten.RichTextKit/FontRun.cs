@@ -666,8 +666,8 @@ namespace Topten.RichTextKit
                         {
                             // Work out underline metrics
                             float underlineYPos = Line.YCoord + Line.BaseLine + (_font.Metrics.UnderlinePosition ?? 0);
-                            if (underlineYPos < Line.YCoord + Line.BaseLine + 1)
-                                underlineYPos = Line.YCoord + Line.BaseLine + 1;
+                            if (underlineYPos < Line.YCoord + Line.BaseLine + Style.MinThickness)
+                                underlineYPos = Line.YCoord + Line.BaseLine + Style.MinThickness;
                             paint.StrokeWidth = _font.Metrics.UnderlineThickness ?? 1;
                             if (ctx.Canvas.TotalMatrix.ScaleY * paint.StrokeWidth < Style.MinThickness)
                                 paint.StrokeWidth = Style.MinThickness;
