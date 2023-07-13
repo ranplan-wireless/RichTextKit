@@ -7,10 +7,11 @@
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>Ranplan.$(AssemblyName)</PackageId>
-    <Version>0.1.2</Version>
+    <Version>0.1.4</Version>
     <Authors>Ranplan Wireless &amp; Topten Software</Authors>
     <Company>Ranplan Wireless</Company>
     <Title>Ranplan.RichTextKit</Title>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

@@ -620,6 +620,7 @@ namespace Topten.RichTextKit
 
                 // Setup SKPaint
                 paint.Color = Style.TextColor;
+                paint.IsStroke = true;
 
                 if (Style.HaloColor != SKColor.Empty)
                 {
@@ -627,6 +628,7 @@ namespace Topten.RichTextKit
                     paintHalo.Style = SKPaintStyle.Stroke;
                     paintHalo.StrokeWidth = Style.HaloWidth;
                     paintHalo.StrokeCap = SKStrokeCap.Square;
+                    paintHalo.IsStroke = true;
                     if (Style.HaloBlur > 0)
                         paintHalo.MaskFilter = SKMaskFilter.CreateBlur(SKBlurStyle.Normal, Style.HaloBlur);
                 }
@@ -741,10 +743,11 @@ namespace Topten.RichTextKit
                                 float strikeYPos = Line.YCoord + Line.BaseLine + (_font.Metrics.StrikeoutPosition ?? 0) + glyphVOffset;
                                 ctx.Canvas.DrawLine(new SKPoint(XCoord, strikeYPos), new SKPoint(XCoord + Width, strikeYPos), paintHalo);
                             }
-                            ctx.Canvas.DrawText(_textBlob, 0, 0, paintHalo);
+
+                            DrawLine(_textBlob, ctx, paintHalo);
                         }
 
-                        ctx.Canvas.DrawText(_textBlob, 0, 0, paint);
+                        DrawLine(_textBlob, ctx, paint);
                     }
                 }
 
@@ -759,7 +762,15 @@ namespace Topten.RichTextKit
                 }
             }
         }
-        
+
+        private static void DrawLine(SKTextBlob text, PaintTextContext ctx, SKPaint paint)
+        {
+            var original = paint.IsStroke;
+            paint.IsStroke = false;
+            ctx.Canvas.DrawText(text, 0, 0, paint);
+            paint.IsStroke = original;
+        }
+
         /// <summary>
         /// Paint background of this font run
         /// </summary>
